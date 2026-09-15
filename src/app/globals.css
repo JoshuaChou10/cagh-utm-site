@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #1b587d;
+  --blue: #57a9d6;
+  --sky: #9bd8f2;
+  --pale: #e7f6fd;
+  --ice: #f5fbfe;
+  --ink: #173b52;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: #b7e6f8; color: #1b587d; }
+
+.container-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.section-pad { padding-block: clamp(72px, 8vw, 120px); }
+
+.eyebrow {
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #2d6ca2;
+}
+
+.display {
+  font-size: clamp(3rem, 7vw, 7.4rem);
+  line-height: .92;
+  letter-spacing: -0.055em;
+  font-weight: 800;
+}
+
+.h2 {
+  font-size: clamp(2.25rem, 4.3vw, 4.8rem);
+  line-height: .98;
+  letter-spacing: -0.045em;
+  font-weight: 760;
+}
+
+.body-lg {
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.7;
+  color: #48627a;
+}
+
+.photo-placeholder {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(87,169,214,.9), rgba(155,216,242,.78)),
+    radial-gradient(circle at 20% 25%, rgba(255,255,255,.8), transparent 35%),
+    radial-gradient(circle at 80% 70%, rgba(231,246,253,.85), transparent 30%),
+    #57a9d6;
+}
+
+.home-event-background {
+  background-color: #e7f6fd;
+  background-image: linear-gradient(rgba(245,251,254,.76), rgba(245,251,254,.76)), url("/events/event-bg.png");
+  background-position: center;
+  background-size: cover;
+}
+.photo-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.16) 1px, transparent 0);
+  background-size: 18px 18px;
+  opacity: .35;
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .25s ease;
+}
+.link-underline:hover { background-size: 100% 1px; }

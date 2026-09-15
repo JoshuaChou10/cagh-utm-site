@@ -1,0 +1,10 @@
+import Link from "next/link";
+import { EventPhoto } from "@/components/EventPhoto";
+
+export default function AboutPage() {
+  return <>
+    <section className="bg-uoft-ice pt-40 pb-24"><div className="container-shell"><div className="eyebrow">About us</div><h1 className="h2 mt-4 max-w-4xl text-uoft-navy">Global health is bigger than one discipline.</h1><p className="body-lg mt-7 max-w-3xl">CAGH UTM creates space for students from across UTM to explore global health through community, research, dialogue, mentorship and action.</p></div></section>
+    <section className="section-pad"><div className="container-shell grid gap-14 lg:grid-cols-2"><EventPhoto label="CAGH UTM event / group photo"/><div><div className="eyebrow">Our chapter</div><h2 className="mt-4 text-4xl font-bold tracking-tight text-uoft-navy">Built by students, connected nationally.</h2><p className="body-lg mt-6">We are the University of Toronto Mississauga student chapter of the Canadian Association for Global Health. Our goal is to make global health approachable, interdisciplinary and connected to real opportunities.</p><p className="body-lg mt-5">Through events, mentorship and student-led initiatives, we help students meet people, discover pathways and engage with the questions shaping health around the world.</p><Link href="https://cagh-acsm.org/" target="_blank" className="mt-8 inline-block font-bold text-uoft-navy">Visit the national CAGH website ↗</Link></div></div></section>
+    <section className="section-pad bg-uoft-navy text-white"><div className="container-shell grid gap-8 md:grid-cols-3">{[["Curiosity","Learn across disciplines and challenge assumptions."],["Equity","Keep health equity and inclusion at the centre of our work."],["Community","Build relationships that turn interest into action."]].map(([a,b])=><div key={a} className="border-t border-white/25 pt-6"><h3 className="text-2xl font-bold">{a}</h3><p className="mt-3 leading-7 text-blue-100/75">{b}</p></div>)}</div></section>
+  </>;
+}
