@@ -15,9 +15,25 @@ export function SetPasswordForm() {
       setLinkError("Admin sign-in is not configured yet.");
       return;
     }
+    const client = supabase;
 
     let cancelled = false;
-    const client = supabase;
+    let settled = false;
+
+    function succeed() {
+      if (cancelled || settled) return;
+      settled = true;
+      setReady(true);
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    }
+
+    function fail(message?: string) {
+      if (cancelled || settled) return;
+      settled = true;
+      setLinkError(message ?? "This invite link is invalid or has expired. Ask an admin to send a new one.");
+    }
 
     async function syncSession() {
       const url = new URL(window.location.href);
@@ -25,27 +41,60 @@ export function SetPasswordForm() {
 
       if (code) {
         const { error } = await client.auth.exchangeCodeForSession(code);
-        if (!cancelled && error) {
-          setLinkError("This invite link is invalid or has expired. Ask an admin to send a new one.");
+        if (error) {
+          fail(error.message);
+          return;
+        }
+        succeed();
+        return;
+      }
+
+      // Supabase invite emails usually land with tokens in the URL hash.
+      if (url.hash.startsWith("#")) {
+        const params = new URLSearchParams(url.hash.slice(1));
+        const accessToken = params.get("access_token");
+        const refreshToken = params.get("refresh_token");
+        const type = params.get("type");
+
+        if (accessToken && refreshToken) {
+          if (type && type !== "invite" && type !== "recovery" && type !== "signup") {
+            fail();
+            return;
+          }
+
+          const { error } = await client.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+
+          if (error) {
+            fail(error.message);
+            return;
+          }
+
+          succeed();
           return;
         }
       }
 
-      const { data: { user } } = await client.auth.getUser();
-      if (!cancelled && !user) {
-        setLinkError("This invite link is invalid or has expired. Ask an admin to send a new one.");
+      const { data: { session } } = await client.auth.getSession();
+      if (session) {
+        succeed();
         return;
       }
 
-      if (!cancelled) {
-        setReady(true);
-      }
+      fail();
     }
+
+    const { data: listener } = client.auth.onAuthStateChange((_event, session) => {
+      if (session) succeed();
+    });
 
     void syncSession();
 
     return () => {
       cancelled = true;
+      listener.subscription.unsubscribe();
     };
   }, []);
 

@@ -35,7 +35,8 @@ export async function addAdmin(_prev: ActionState, formData: FormData): Promise<
   }
 
   const siteUrl = await getSiteUrl();
-  const redirectTo = `${siteUrl}/auth/callback?next=/admin/set-password`;
+  // Invite emails use hash tokens; send them straight to the password page.
+  const redirectTo = `${siteUrl}/admin/set-password`;
 
   const { data: invited, error: inviteError } = await service.auth.admin.inviteUserByEmail(email, {
     redirectTo,

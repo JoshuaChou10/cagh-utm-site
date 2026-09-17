@@ -58,7 +58,9 @@ export async function updateSession(request: NextRequest) {
       .maybeSingle();
     isAdmin = Boolean(admin);
 
-    if (!isAdmin) {
+    // Never sign out on the set-password page — invitees land here before
+    // they finish setup, and signing them out makes the link look "expired".
+    if (!isAdmin && !isSetPasswordPath) {
       await supabase.auth.signOut();
     }
   }

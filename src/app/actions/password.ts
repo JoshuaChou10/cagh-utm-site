@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getServiceSupabase } from "@/lib/supabase/service";
 import type { ActionState } from "@/lib/types";
 
 export async function setAdminPassword(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -22,8 +23,16 @@ export async function setAdminPassword(_prev: ActionState, formData: FormData): 
   }
 
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
+  if (!user?.email) {
     return { error: "This invite link is invalid or has expired. Ask an admin to send a new one." };
+  }
+
+  const service = getServiceSupabase();
+  if (service) {
+    await service.from("admins").upsert({
+      user_id: user.id,
+      email: user.email.toLowerCase(),
+    });
   }
 
   const { error } = await supabase.auth.updateUser({ password });
