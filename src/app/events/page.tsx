@@ -1,10 +1,65 @@
-import { events } from "@/lib/content";
-import { EventPhoto } from "@/components/EventPhoto";
+import { EventCard } from "@/components/EventCard";
+import { listEvents } from "@/lib/events";
+import { isPastEvent } from "@/lib/format";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 
-export default function EventsPage() {
-  return <>
-    <section className="bg-gradient-to-br from-uoft-ice to-uoft-pale pt-40 pb-24"><div className="container-shell"><div className="eyebrow">Events</div><h1 className="h2 mt-4 max-w-4xl text-uoft-navy">Come for the topic. Stay for the people.</h1><p className="body-lg mt-7 max-w-2xl">Panels, workshops, career conversations and community events designed to make global health more tangible.</p></div></section>
-    <section className="section-pad"><div className="container-shell"><div className="grid gap-6 lg:grid-cols-3">{events.map((e,i)=><article key={e.title} className="overflow-hidden rounded-[2rem] border border-slate-200"><div className="photo-placeholder h-60"/><div className="p-7"><div className="eyebrow">{e.tag}</div><h2 className="mt-4 text-2xl font-bold text-uoft-navy">{e.title}</h2><p className="mt-4 leading-7 text-slate-600">{e.description}</p><div className="mt-6 flex justify-between text-sm font-semibold text-slate-500"><span>{e.date}</span><span>{e.location}</span></div></div></article>)}</div></div></section>
-    <section className="section-pad bg-uoft-ice"><div className="container-shell"><div className="eyebrow">Past events</div><h2 className="h2 mt-4 text-uoft-navy">A chapter you can see yourself in.</h2><div className="mt-12 grid gap-6 md:grid-cols-2"><EventPhoto label="Past event photo #1"/><EventPhoto label="Past event photo #2"/><EventPhoto label="Past event photo #3"/><EventPhoto label="Past event photo #4"/></div></div></section>
-  </>;
+export const metadata = {
+  title: "Events | CAGH UTM",
+};
+
+export default async function EventsPage() {
+  const events = await listEvents();
+  const upcoming = events.filter((event) => !isPastEvent(event.starts_at, event.ends_at));
+  const past = events.filter((event) => isPastEvent(event.starts_at, event.ends_at));
+
+  return (
+    <>
+      <section className="bg-gradient-to-br from-uoft-ice to-uoft-pale pt-40 pb-24">
+        <div className="container-shell">
+          <h1 className="display max-w-4xl text-uoft-navy">Events</h1>
+          <p className="body-lg mt-7 max-w-2xl">
+            Panels, workshops, career conversations and community events designed to make global health more tangible. Sign up with your name and email — no account needed.
+          </p>
+        </div>
+      </section>
+      <section className="section-pad">
+        <div className="container-shell">
+          {!isSupabaseConfigured() ? (
+            <p className="rounded-[2rem] border border-slate-200 bg-white p-8 text-slate-600">
+              Events will appear here once Supabase is connected.
+            </p>
+          ) : upcoming.length === 0 && past.length === 0 ? (
+            <p className="rounded-[2rem] border border-slate-200 bg-white p-8 text-slate-600">
+              No events are posted yet. Check back soon.
+            </p>
+          ) : (
+            <>
+              {upcoming.length > 0 ? (
+                <div className="grid gap-6 lg:grid-cols-3">
+                  {upcoming.map((event) => (
+                    <EventCard key={event.id} event={event} showSignup />
+                  ))}
+                </div>
+              ) : (
+                <p className="rounded-[2rem] border border-slate-200 bg-white p-8 text-slate-600">
+                  No upcoming events right now.
+                </p>
+              )}
+              {past.length > 0 ? (
+                <div className="mt-20">
+                  <div className="eyebrow">Past events</div>
+                  <h2 className="h2 mt-4 text-uoft-navy">Recently hosted</h2>
+                  <div className="mt-12 grid gap-6 lg:grid-cols-3">
+                    {past.map((event) => (
+                      <EventCard key={event.id} event={event} showSignup />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </>
+          )}
+        </div>
+      </section>
+    </>
+  );
 }

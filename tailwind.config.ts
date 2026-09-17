@@ -13,6 +13,7 @@ const config: Config = {
           navy: "#1B587D",
           blue: "#57A9D6",
           sky: "#9BD8F2",
+          gold: "#D6A84F",
           pale: "#E7F6FD",
           ice: "#F5FBFE",
           ink: "#173B52"

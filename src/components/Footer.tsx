@@ -1,6 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-uoft-navy py-14 text-white">
       <div className="container-shell grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -23,8 +32,9 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="container-shell mt-10 border-t border-white/15 pt-6 text-xs text-blue-100/60">
-        © {new Date().getFullYear()} CAGH UTM. Built for the UTM global health community.
+      <div className="container-shell mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-6 text-xs text-blue-100/60">
+        <span>© {new Date().getFullYear()} CAGH UTM. Built for the UTM global health community.</span>
+        <Link href="/admin/login" className="text-blue-100/50 hover:text-white">Admin</Link>
       </div>
     </footer>
   );

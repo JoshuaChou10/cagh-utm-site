@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const nav = [
@@ -13,7 +14,12 @@ const nav = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/50 bg-white/80 backdrop-blur-xl">
@@ -37,7 +43,7 @@ export function Navbar() {
         </button>
       </div>
 
-      {open && (
+      {open ? (
         <div className="border-t bg-white lg:hidden">
           <nav className="container-shell flex flex-col py-5">
             {nav.map(([label, href]) => (
@@ -45,7 +51,7 @@ export function Navbar() {
             ))}
           </nav>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }
