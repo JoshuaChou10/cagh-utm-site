@@ -77,7 +77,7 @@ export async function addAdmin(_prev: ActionState, formData: FormData): Promise<
   }
 
   revalidatePath("/admin/admins");
-  return { success: `Invite sent to ${email}. They will choose their own password.` };
+  return { success: `Invite sent to ${email}.` };
 }
 
 export async function removeAdmin(userId: string) {

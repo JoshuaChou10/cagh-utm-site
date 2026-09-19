@@ -28,8 +28,8 @@ export async function sendSignupConfirmation(options: {
     html: `
       <div style="font-family: Arial, Helvetica, sans-serif; color: #173b52; line-height: 1.6; max-width: 560px;">
         <p style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #b07f22; font-weight: 700;">CAGH UTM</p>
-        <h1 style="font-size: 28px; line-height: 1.1; color: #1b587d;">You're on the list, ${escapeHtml(options.name)}.</h1>
-        <p>Thanks for signing up. Here are the event details:</p>
+        <h1 style="font-size: 28px; line-height: 1.1; color: #1b587d;">Hi ${escapeHtml(options.name)}, you are registered!</h1>
+        <p>Here are the details for ${escapeHtml(options.event.title)}.</p>
         <div style="border: 1px solid #dbe7ef; border-radius: 20px; padding: 20px; background: #f5fbfe;">
           <p style="margin: 0 0 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #57a9d6; font-weight: 700;">${escapeHtml(options.event.tag)}</p>
           <h2 style="margin: 0 0 12px; font-size: 22px; color: #1b587d;">${escapeHtml(options.event.title)}</h2>
@@ -37,7 +37,7 @@ export async function sendSignupConfirmation(options: {
           <p style="margin: 0 0 8px;"><strong>Where:</strong> ${escapeHtml(options.event.location)}</p>
           <p style="margin: 12px 0 0;">${escapeHtml(options.event.description)}</p>
         </div>
-        <p style="margin-top: 24px; color: #48627a;">We look forward to seeing you there.</p>
+        <p style="margin-top: 24px; color: #48627a;">We look forward to seeing you there!</p>
       </div>
     `,
   });

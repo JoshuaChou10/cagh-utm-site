@@ -11,7 +11,7 @@ export function AddAdminForm() {
       <div>
         <label className="field-label" htmlFor="admin-email">Email</label>
         <input id="admin-email" name="email" type="email" required autoComplete="off" className="field-input" placeholder="exec@mail.utoronto.ca" />
-        <p className="mt-2 text-sm text-slate-500">We’ll email them an invite. They set their own password. You never see it.</p>
+        <p className="mt-2 text-sm text-slate-500">We’ll email them an invite to join as an admin.</p>
       </div>
       {state?.error ? <p className="text-sm font-semibold text-red-600" role="alert">{state.error}</p> : null}
       {state?.success ? <p className="text-sm font-semibold text-emerald-700" role="status">{state.success}</p> : null}

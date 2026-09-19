@@ -18,7 +18,7 @@ export default async function EventsPage() {
         <div className="container-shell">
           <h1 className="display max-w-4xl text-uoft-navy">Events</h1>
           <p className="body-lg mt-7 max-w-2xl">
-            Panels, workshops, career conversations and community events designed to make global health more tangible. Sign up with your name and email — no account needed.
+            Our Events! Sign up with your name and email, no account needed.
           </p>
         </div>
       </section>

@@ -58,9 +58,9 @@ export default async function Home() {
           <div className="max-w-3xl"><div className="eyebrow">What we do</div><h2 className="h2 mt-4 text-uoft-blue">We are Conveners, Partners, and Champions</h2></div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {[
-              [Users, "Conveners", "Meet students, researchers, speakers and professionals working across global health."],
-              [GraduationCap, "Partners", "Attend panels, workshops, research talks and career conversations."],
-              [Sparkles, "Champions", "Turn awareness into projects, advocacy, mentorship and meaningful involvement."],
+              [Users, "Conveners", "We bring students together across disciplines for panels, workshops, networking and shared learning on global health."],
+              [GraduationCap, "Partners", "We collaborate with peers, mentors, researchers and organizations to open doors to research, careers and community projects."],
+              [Sparkles, "Champions", "We advocate for health equity and turn ideas into action through mentorship, outreach and campus initiatives."],
             ].map(([Icon, title, text]: any) => <div key={title} className="rounded-[2rem] border border-blue-900/10 bg-white p-8 shadow-[0_10px_40px_rgba(0,42,92,.05)]"><Icon className="text-uoft-blue"/><h3 className="mt-14 text-3xl font-bold text-uoft-navy">{title}</h3><p className="mt-4 leading-7 text-slate-600">{text}</p></div>)}
           </div>
         </div>
@@ -68,7 +68,7 @@ export default async function Home() {
 
       <section className="section-pad bg-white">
         <div className="container-shell">
-          <div className="flex flex-wrap items-end justify-between gap-6"><div><div className="eyebrow">Up next</div><h2 className="h2 mt-4 text-uoft-blue">Events we Have...</h2></div><Link href="/events" className="font-bold text-[#C5A028]">View all events →</Link></div>
+          <div className="flex flex-wrap items-end justify-between gap-6"><div><div className="eyebrow">Up next</div><h2 className="h2 mt-4 text-uoft-blue">Events Coming Up...</h2></div><Link href="/events" className="font-bold text-[#C5A028]">View all events →</Link></div>
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {upcoming.length === 0 ? (
               <p className="rounded-[2rem] border border-slate-200 bg-white p-8 text-slate-600 lg:col-span-3">

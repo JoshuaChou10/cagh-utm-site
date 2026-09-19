@@ -19,7 +19,7 @@ export default async function AdminsPage() {
         <div className="eyebrow">Admin</div>
         <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-uoft-navy">Admins</h1>
         <p className="mt-4 max-w-2xl text-slate-600">
-          Each exec is invited by email and chooses their own password. Students still sign up for events with only a name and email.
+          Invite club execs by email. Students still sign up for events with only a name and email.
         </p>
 
         <div className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8">
