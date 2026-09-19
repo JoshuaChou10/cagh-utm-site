@@ -75,7 +75,7 @@ export default async function Home() {
                 No upcoming events yet. Check the events page soon.
               </p>
             ) : upcoming.map((event, i) => (
-              <EventCard key={event.id} event={event} tint={i === 1} />
+              <EventCard key={event.id} event={event} tint={i === 1} showSignup />
             ))}
           </div>
         </div>

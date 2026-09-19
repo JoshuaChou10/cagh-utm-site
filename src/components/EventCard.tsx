@@ -1,6 +1,32 @@
+"use client";
+
+import { useState } from "react";
 import { EventSignupForm } from "@/components/EventSignupForm";
 import { formatEventDate, isPastEvent } from "@/lib/format";
 import type { EventRecord } from "@/lib/types";
+
+const DESCRIPTION_LIMIT = 140;
+
+function EventDescription({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const needsTruncate = text.length > DESCRIPTION_LIMIT;
+  const shown = !needsTruncate || expanded ? text : `${text.slice(0, DESCRIPTION_LIMIT).trimEnd()}…`;
+
+  return (
+    <div className="mt-3">
+      <p className="leading-7 text-slate-600">{shown}</p>
+      {needsTruncate ? (
+        <button
+          type="button"
+          className="mt-2 text-sm font-bold text-uoft-blue hover:text-uoft-navy"
+          onClick={() => setExpanded((value) => !value)}
+        >
+          {expanded ? "Show less" : "Read more"}
+        </button>
+      ) : null}
+    </div>
+  );
+}
 
 export function EventCard({
   event,
@@ -22,7 +48,7 @@ export function EventCard({
           <span>{formatEventDate(event.starts_at)}</span>
         </div>
         <h2 className="mt-5 text-2xl font-bold text-uoft-navy">{event.title}</h2>
-        <p className="mt-3 leading-7 text-slate-600">{event.description}</p>
+        <EventDescription text={event.description} />
         <div className="mt-6 text-sm font-semibold text-slate-500">{event.location}</div>
         {showSignup ? (
           past ? (
