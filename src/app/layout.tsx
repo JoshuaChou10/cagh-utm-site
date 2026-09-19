@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthHashRedirect } from "@/components/AuthHashRedirect";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "CAGH UTM | Global Health at UTM",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
