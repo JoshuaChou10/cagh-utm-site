@@ -28,7 +28,7 @@ export function Footer() {
         <div className="text-sm">
           <div className="mb-3 font-semibold">Get involved</div>
           <div className="grid gap-2 text-blue-100/80">
-            <Link href="/get-involved">General member list</Link><Link href="/get-involved">Executive applications</Link><Link href="/get-involved">Mentorship program</Link>
+            <Link href="/get-involved">General member list</Link><Link href="/get-involved">Mentorship program</Link>
           </div>
         </div>
       </div>

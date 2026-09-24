@@ -1,9 +1,16 @@
-import { team } from "@/lib/content";
-import { EventPhoto } from "@/components/EventPhoto";
-
 export default function TeamPage() {
-  return <>
-    <section className="bg-uoft-ice pt-40 pb-24"><div className="container-shell"><h1 className="display max-w-4xl text-uoft-blue">Team</h1><p className="body-lg mt-7 max-w-2xl">Students building programs, partnerships and experiences that make global health more accessible at UTM.</p></div></section>
-    <section className="section-pad"><div className="container-shell"><EventPhoto label="CAGH UTM executive team group photo"/><div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">{team.map((m,i)=><article key={i}><div className="aspect-[4/5] rounded-[1.6rem] bg-gradient-to-br from-uoft-pale to-sky-200"/><div className="mt-5"><h2 className="text-xl font-bold text-uoft-navy">{m.name}</h2><div className="mt-1 font-semibold text-uoft-blue">{m.role}</div><div className="mt-1 text-sm text-slate-500">{m.program}</div></div></article>)}</div></div></section>
-  </>;
+  return (
+    <main className="min-h-[60vh] bg-gradient-to-br from-uoft-ice to-white">
+      <section className="section-pad">
+        <div className="container-shell max-w-3xl rounded-[2rem] border border-slate-200 bg-white p-10 shadow-sm md:p-14">
+          <div className="eyebrow">CAGH UTM</div>
+          <h1 className="mt-6 text-4xl font-bold text-uoft-navy md:text-5xl">Team</h1>
+          <p className="mt-6 text-xl leading-8 text-slate-600">This page is currently under construction.</p>
+          <p className="mt-4 text-base leading-7 text-slate-500">
+            Executive and team profiles will be published here once the page is ready.
+          </p>
+        </div>
+      </section>
+    </main>
+  );
 }
