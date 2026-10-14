@@ -2,8 +2,9 @@ import { ArrowUpRight } from "lucide-react";
 import { siteLinks } from "@/lib/content";
 
 const items = [
-  ["General member list", "Join the CAGH UTM community and receive chapter updates, events and opportunities.", siteLinks.generalMember, "Join as a general member"],
-  ["Mentorship program", "Connect with mentors and mentees and build relationships that support your global health journey.", siteLinks.mentorshipApplication, "Open mentorship application"],
+  ["Join CAGH", "Join the CAGH UTM community and receive chapter updates, events and opportunities.", "https://docs.google.com/forms/d/e/1FAIpQLSdNAjKRlJwhG-FfVQcEVpUtz--kh0AMFj5gcaCcqnYtgXWIUA/viewform", "Join as a general member"],
+  // ["Become a Rep", "Connect with mentors and mentees and build relationships that support your global health journey.", "https://docs.google.com/forms/d/e/1FAIpQLSdNAjKRlJwhG-FfVQcEVpUtz--kh0AMFj5gcaCcqnYtgXWIUA/viewform", "Rep Applications"],
+  // ["Mentorship program", "Connect with mentors and mentees and build relationships that support your global health journey.", "https://docs.google.com/forms/d/e/1FAIpQLSdNAjKRlJwhG-FfVQcEVpUtz--kh0AMFj5gcaCcqnYtgXWIUA/viewform", "Open mentorship application"],
 ];
 
 export default function GetInvolvedPage() {

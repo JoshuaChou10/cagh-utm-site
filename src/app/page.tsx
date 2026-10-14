@@ -28,7 +28,9 @@ export default async function Home() {
   Explore events <MoveUpRight size={17} />
 </Link>            </div>
             <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-slate-500">
-              <span>Community</span><span>Research</span><span>Mentorship</span><span>Policy</span>
+              <a href="https://cagh-acsm.org/" target="_blank" rel="noreferrer" className="transition hover:text-uoft-blue">Community</a>
+              <a href="https://cagh-acsm.org/global-health-research-directory/" target="_blank" rel="noreferrer" className="transition hover:text-uoft-blue">Research</a>
+              <a href="https://cagh-acsm.org/mentornet-sep/" target="_blank" rel="noreferrer" className="transition hover:text-uoft-blue">Mentorship</a>
             </div>
           </div>
           <div className="relative">

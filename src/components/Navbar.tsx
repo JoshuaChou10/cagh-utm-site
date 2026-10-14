@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -8,7 +9,6 @@ import { useState } from "react";
 const nav = [
   ["Home", "/"],
   ["Events", "/events"],
-  ["Mentorship", "/mentorship"],
   ["Team", "/team"],
   ["Get Involved", "/get-involved"],
 ];
@@ -25,7 +25,7 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/50 bg-white/80 backdrop-blur-xl">
       <div className="container-shell flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-3 font-bold text-uoft-navy" aria-label="CAGH UTM home">
-          <div className="grid h-10 w-10 place-items-center rounded-full bg-uoft-navy text-sm text-white">C</div>
+          <Image src="/cagh-logo.png" alt="CAGH UTM logo" width={40} height={40} className="h-10 w-10 object-contain" />
           <div className="leading-tight">
             <div className="text-base">CAGH UTM</div>
             <div className="text-[10px] uppercase tracking-[.18em] text-slate-500">Global Health</div>
