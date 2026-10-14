@@ -22,7 +22,7 @@ export function Footer() {
         <div className="text-sm">
           <div className="mb-3 font-semibold">Explore</div>
           <div className="grid gap-2 text-blue-100/80">
-            <Link href="/about">About</Link><Link href="/events">Events</Link><Link href="/mentorship">Mentorship</Link><Link href="/team">Team</Link>
+            <Link href="/events">Events</Link><Link href="/team">Team</Link>
           </div>
         </div>
         <div className="text-sm">

@@ -50,6 +50,7 @@ export default async function Home() {
             <div className="eyebrow">Who we are</div>
             <h2 className="h2 mt-4 text-uoft-blue">Welcome to Canada’s largest global health community.</h2>
             <p className="body-lg mt-7">CAGH UTM is the University of Toronto Mississauga student chapter of the Canadian Association for Global Health. We bring students together across disciplines to learn, connect and act on health challenges that cross borders.</p>
+            <a href="https://cagh-acsm.org/" target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-4 font-semibold text-white transition hover:-translate-y-1 border-[#D4AF37] bg-[#D4AF37]">Explore national CAGH UTM website <MoveUpRight size={17} /></a>
           </div>
           <EventPhoto label="CAGH UTM community / event photo" />
         </div>
