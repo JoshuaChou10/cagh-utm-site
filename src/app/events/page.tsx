@@ -16,7 +16,7 @@ export default async function EventsPage() {
     <>
       <section className="bg-gradient-to-br from-uoft-ice to-uoft-pale pt-40 pb-24">
         <div className="container-shell">
-          <h1 className="display max-w-4xl text-uoft-navy">Events</h1>
+          <h1 className="page-title max-w-4xl text-uoft-navy">Events</h1>
           <p className="body-lg mt-7 max-w-2xl">
             Our Events! Sign up with your name and email, no account needed.
           </p>
