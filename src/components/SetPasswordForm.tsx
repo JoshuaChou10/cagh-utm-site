@@ -1,12 +1,20 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
+import type { EmailOtpType } from "@supabase/supabase-js";
 import { setAdminPassword } from "@/app/actions/password";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
+
+function readOtpType(value: string | null): EmailOtpType | null {
+  if (value === "invite" || value === "recovery" || value === "signup") return value;
+  return null;
+}
 
 export function SetPasswordForm() {
   const [state, action, pending] = useActionState(setAdminPassword, null);
   const [ready, setReady] = useState(false);
+  const [needsConfirm, setNeedsConfirm] = useState(false);
+  const [confirming, setConfirming] = useState(false);
   const [linkError, setLinkError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -16,6 +24,14 @@ export function SetPasswordForm() {
       return;
     }
     const client = supabase;
+
+    const url = new URL(window.location.href);
+    const tokenHash = url.searchParams.get("token_hash");
+    const otpType = readOtpType(url.searchParams.get("type"));
+    if (tokenHash && otpType) {
+      setNeedsConfirm(true);
+      return;
+    }
 
     let cancelled = false;
     let settled = false;
@@ -98,8 +114,47 @@ export function SetPasswordForm() {
     };
   }, []);
 
+  async function confirmLink() {
+    const supabase = createBrowserSupabase();
+    if (!supabase) {
+      setLinkError("Admin sign-in is not configured yet.");
+      return;
+    }
+
+    const url = new URL(window.location.href);
+    const tokenHash = url.searchParams.get("token_hash");
+    const otpType = readOtpType(url.searchParams.get("type"));
+    if (!tokenHash || !otpType) {
+      setLinkError("This invite link is invalid or has expired. Ask an admin to send a new one.");
+      return;
+    }
+
+    setConfirming(true);
+    const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: otpType });
+    setConfirming(false);
+    if (error) {
+      setLinkError(error.message);
+      return;
+    }
+
+    window.history.replaceState(null, "", window.location.pathname);
+    setNeedsConfirm(false);
+    setReady(true);
+  }
+
   if (linkError) {
     return <p className="font-semibold text-red-600">{linkError}</p>;
+  }
+
+  if (needsConfirm) {
+    return (
+      <div className="grid gap-5">
+        <p className="text-slate-600">This setup link is for your account only. Continue to choose a password.</p>
+        <button className="btn-navy w-fit" type="button" onClick={() => void confirmLink()} disabled={confirming}>
+          {confirming ? "Checking link..." : "Continue"}
+        </button>
+      </div>
+    );
   }
 
   if (!ready) {

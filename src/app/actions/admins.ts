@@ -35,19 +35,23 @@ export async function addAdmin(_prev: ActionState, formData: FormData): Promise<
   }
 
   const siteUrl = await getSiteUrl();
-  // Invite emails use hash tokens; send them straight to the password page.
   const redirectTo = `${siteUrl}/admin/set-password`;
 
-  const { data: invited, error: inviteError } = await service.auth.admin.inviteUserByEmail(email, {
-    redirectTo,
+  // Creates the account and a one-time token without sending email.
+  // The admin copies the link and gives it to that person directly.
+  const { data: invited, error: inviteError } = await service.auth.admin.generateLink({
+    type: "invite",
+    email,
+    options: { redirectTo },
   });
 
+  const tokenHash = invited?.properties?.hashed_token;
   let userId = invited?.user?.id ?? null;
 
-  if (inviteError || !userId) {
+  if (inviteError || !userId || !tokenHash) {
     userId = await findUserIdByEmail(email);
     if (!userId) {
-      return { error: inviteError?.message ?? "Could not send the invite." };
+      return { error: inviteError?.message ?? "Could not create the setup link." };
     }
 
     const { error: insertExistingError } = await service.from("admins").insert({
@@ -73,11 +77,15 @@ export async function addAdmin(_prev: ActionState, formData: FormData): Promise<
   });
 
   if (insertError && insertError.code !== "23505") {
-    return { error: "Invite sent, but we could not add them to the admin list." };
+    return { error: "The account was created, but we could not add them to the admin list." };
   }
 
   revalidatePath("/admin/admins");
-  return { success: `Invite sent to ${email}.` };
+  const inviteLink = `${redirectTo}?token_hash=${encodeURIComponent(tokenHash)}&type=invite`;
+  return {
+    success: `Setup link ready for ${email}. Send it only to them. It works once.`,
+    inviteLink,
+  };
 }
 
 export async function removeAdmin(userId: string) {

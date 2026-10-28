@@ -25,6 +25,7 @@ export type EventWithSignupCount = EventRecord & {
 export type ActionState = {
   error?: string;
   success?: string;
+  inviteLink?: string;
 } | null;
 
 export type AdminRecord = {
