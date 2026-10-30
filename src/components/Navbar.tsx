@@ -9,7 +9,7 @@ import { useState } from "react";
 const nav = [
   ["Home", "/"],
   ["Events", "/events"],
-  // ["Team", "/team"],
+  ["Team", "/team"],
   ["Get Involved", "/get-involved"],
 ];
 
