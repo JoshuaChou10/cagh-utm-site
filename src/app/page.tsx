@@ -3,12 +3,10 @@ import { ArrowRight, GraduationCap, Users, Sparkles, MoveUpRight } from "lucide-
 import { EventPhoto } from "@/components/EventPhoto";
 import { EventCard } from "@/components/EventCard";
 import { GlobeClient } from "@/components/GlobeClient";
-import { listEvents } from "@/lib/events";
-import { isPastEvent } from "@/lib/format";
-
+import { listUpcomingEvents } from "@/lib/events";
+import { EventsNavLink } from "@/components/EventsNavLink";
 export default async function Home() {
-  const events = await listEvents();
-  const upcoming = events.filter((event) => !isPastEvent(event.starts_at, event.ends_at)).slice(0, 3);
+  const upcoming = await listUpcomingEvents(3);
 
   return (
     <>
@@ -21,12 +19,11 @@ export default async function Home() {
             <p className="body-lg mt-7 max-w-2xl">We are a student-led organization at the University of Toronto Mississauga advancing global health equity through advocacy and education.</p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link href="/get-involved" className="inline-flex items-center gap-2 rounded-full bg-uoft-blue px-6 py-4 font-semibold text-white transition hover:-translate-y-1 hover:bg-uoft-sky">Join CAGH UTM <ArrowRight size={18}/></Link>
-<Link
-  href="/events"
-  className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37] bg-[#D4AF37] px-6 py-4 font-semibold text-uoft-navy transition hover:bg-[#C5A028]"
->
-  Explore events <MoveUpRight size={17} />
-</Link>            </div>
+<EventsNavLink className="YOUR_EXISTING_CLASSES">
+  Explore Events
+</EventsNavLink>        
+
+</div>
             <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-slate-500">
               <a href="https://cagh-acsm.org/" target="_blank" rel="noreferrer" className="transition hover:text-uoft-blue">Community</a>
               <a href="https://cagh-acsm.org/global-health-research-directory/" target="_blank" rel="noreferrer" className="transition hover:text-uoft-blue">Research</a>
