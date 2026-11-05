@@ -19,8 +19,8 @@ export default async function Home() {
             <p className="body-lg mt-7 max-w-2xl">We are a student-led organization at the University of Toronto Mississauga advancing global health equity through advocacy and education.</p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link href="/get-involved" className="inline-flex items-center gap-2 rounded-full bg-uoft-blue px-6 py-4 font-semibold text-white transition hover:-translate-y-1 hover:bg-uoft-sky">Join CAGH UTM <ArrowRight size={18}/></Link>
-<EventsNavLink className="YOUR_EXISTING_CLASSES">
-  Explore Events
+<EventsNavLink className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37] bg-[#D4AF37] px-6 py-4 font-semibold text-uoft-navy transition hover:bg-[#C5A028]">
+  Explore events <MoveUpRight size={17} />
 </EventsNavLink>        
 
 </div>
